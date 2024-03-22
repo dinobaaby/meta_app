@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/firebase_options.dart';
+import 'package:meta_app/responsive/messenger/ms_mobile_layout.dart';
+import 'package:meta_app/utils/messenger/ms_colors.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized(); // Add this line
@@ -16,12 +18,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp( // Wrapping with MaterialApp
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: const MessageMobileLayout(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData().copyWith(
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: action_appbar_ms_color
+          )
+        )
+      ),
     );
   }
 }
