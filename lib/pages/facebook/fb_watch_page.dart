@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meta_app/widgets/facebook/fb_video_posts_widget.dart';
 
 import '../../utils/facebook/fb_colors.dart';
 
@@ -18,6 +19,13 @@ class WatchPage extends StatelessWidget {
           ),
           IconButton(onPressed: (){}, icon: const Icon(CupertinoIcons.search))
         ],
+      ),
+      body: ListView(
+        children: const [
+          FBVideoPostsWidget(),
+          FBVideoPostsWidget(),
+          FBVideoPostsWidget()
+        ]
       ),
     );
   }

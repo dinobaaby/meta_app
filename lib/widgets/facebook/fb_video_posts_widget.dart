@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:meta_app/widgets/facebook/fb_text_button_widget.dart';
-import 'package:multi_image_layout/image_model.dart';
-import 'package:multi_image_layout/multi_image_viewer.dart';
+import 'package:meta_app/widgets/facebook/fb_video_widget.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../utils/facebook/fb_colors.dart';
 
-class FBNewsWidget extends StatefulWidget {
-  const FBNewsWidget({super.key});
+class FBVideoPostsWidget extends StatefulWidget {
+  const FBVideoPostsWidget({super.key});
 
   @override
-  State<FBNewsWidget> createState() => _FBNewsWidgetState();
+  State<FBVideoPostsWidget> createState() => _FBVideoPostsWidgetState();
 }
 
-class _FBNewsWidgetState extends State<FBNewsWidget> {
+class _FBVideoPostsWidgetState extends State<FBVideoPostsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,38 +73,7 @@ class _FBNewsWidgetState extends State<FBNewsWidget> {
           const SizedBox(
             height: 10,
           ),
-          MultiImageViewer(
-            images: [
-              ImageModel(
-                imageUrl:
-                    "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/8719688791.jpg",
-                caption: "A caption here",
-              ),
-              ImageModel(
-                  imageUrl:
-                      "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/4086993630.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://2.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/5713335642.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://1.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/6294874831.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/8719688791.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/4086993630.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://2.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/5713335642.jpg"),
-            ],
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 23,
-              color: Colors.white,
-            ),
-          ),
+          BumbleBeeRemoteVideo(),
           Row(
             children: listButton.map((e) => e).toList(),
           )
