@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta_app/utils/facebook/fb_colors.dart';
 
 List<FBTextButtonWidget> listButton = [
-  FBTextButtonWidget(() {}, Icons.thumb_up_alt_outlined, "Like"),
-  FBTextButtonWidget(() {}, Icons.mode_comment_outlined, "Comment"),
-  FBTextButtonWidget(() {}, Icons.message_outlined, "Sent"),
-  FBTextButtonWidget(() {}, Icons.ios_share_outlined, "Share")
+  FBTextButtonWidget(() {}, FontAwesomeIcons.thumbsUp, "Like"),
+  FBTextButtonWidget(() {}, FontAwesomeIcons.comment, "Comment"),
+  FBTextButtonWidget(() {}, FontAwesomeIcons.message, "Sent"),
+  FBTextButtonWidget(() {}, FontAwesomeIcons.share, "Share")
 ];
 
 class FBTextButtonWidget extends StatefulWidget {

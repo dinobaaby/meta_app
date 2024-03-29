@@ -73,7 +73,7 @@ class _FBVideoPostsWidgetState extends State<FBVideoPostsWidget> {
           const SizedBox(
             height: 10,
           ),
-          BumbleBeeRemoteVideo(),
+          const VideoWidget(),
           Row(
             children: listButton.map((e) => e).toList(),
           )

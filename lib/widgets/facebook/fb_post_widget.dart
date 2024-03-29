@@ -6,14 +6,14 @@ import 'package:readmore/readmore.dart';
 
 import '../../utils/facebook/fb_colors.dart';
 
-class FBNewsWidget extends StatefulWidget {
-  const FBNewsWidget({super.key});
+class FBPostWidget extends StatefulWidget {
+  const FBPostWidget({super.key});
 
   @override
-  State<FBNewsWidget> createState() => _FBNewsWidgetState();
+  State<FBPostWidget> createState() => _FBPostWidgetState();
 }
 
-class _FBNewsWidgetState extends State<FBNewsWidget> {
+class _FBPostWidgetState extends State<FBPostWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(

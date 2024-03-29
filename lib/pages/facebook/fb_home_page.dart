@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:meta_app/widgets/facebook/fb_news_widget.dart';
+import 'package:meta_app/widgets/facebook/fb_post_widget.dart';
 
 import '../../utils/facebook/fb_colors.dart';
 
@@ -14,9 +13,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: SvgPicture.asset(
-          "assets/logos/facebook_logo.svg",
+          "assets/logos/phobo_logo.svg",
           color: button_fb_color,
-          height: 23,
+          height: 64,
         ),
         actions: [
           IconButton(
@@ -62,9 +61,9 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              FBNewsWidget(),
-              FBNewsWidget(),
-              FBNewsWidget()
+              const FBPostWidget(),
+              const FBPostWidget(),
+              const FBPostWidget()
             ],
           ),
         ),
