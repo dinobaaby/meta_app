@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/firebase_options.dart';
+import 'package:meta_app/screens/facebook/fb_create_post_screen.dart';
 import 'package:meta_app/screens/facebook/fb_home_screen.dart';
 
 void main() async  {

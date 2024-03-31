@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meta_app/screens/facebook/fb_create_post_screen.dart';
 import 'package:meta_app/widgets/facebook/fb_post_widget.dart';
 
 import '../../utils/facebook/fb_colors.dart';
@@ -47,7 +48,10 @@ class HomePage extends StatelessWidget {
                     Expanded(
                         child: InkWell(
                           onTap: () {
-                            print("tapped on container");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const CreatePostScreen()),
+                            );
                           },
                           child: const Text("What's your mind ?"),
                         )

@@ -41,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class _NavigationBar extends StatelessWidget {
   const _NavigationBar({
-    Key? key,
+    super.key,
     required this.onItemSelected,
     required this.currentIndex,
-  }) : super(key: key);
+  });
 
   final ValueChanged<int> onItemSelected;
   final int currentIndex;
