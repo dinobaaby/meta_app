@@ -7,7 +7,6 @@ import '../../utils/facebook/fb_colors.dart';
 
 class FBVideoPostsWidget extends StatefulWidget {
   const FBVideoPostsWidget({super.key});
-
   @override
   State<FBVideoPostsWidget> createState() => _FBVideoPostsWidgetState();
 }

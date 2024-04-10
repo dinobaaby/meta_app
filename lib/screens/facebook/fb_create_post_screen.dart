@@ -85,7 +85,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(width:5)
+                                      const SizedBox(width:5)
                                     ]
                                 ),
                               ),
@@ -113,7 +113,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(width:5)
+                                      const SizedBox(width:5)
                                     ]
                                 ),
                               ),
@@ -155,7 +155,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       color: Colors.black.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
@@ -177,18 +177,126 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     ),
                     SliverList.list(children: const [
-                      ListTile(title: Text('Photo')),
-                      ListTile(title: Text('Tag People')),
-                      ListTile(title: Text('Feeling/activity')),
-                      ListTile(title: Text('Check in')),
-                      ListTile(title: Text('Live Video')),
-                      ListTile(title: Text('Background Color')),
-                      ListTile(title: Text('Camera')),
-                      ListTile(title: Text('GIF')),
-                      ListTile(title: Text('Life Event')),
-                      ListTile(title: Text('Music')),
-                      ListTile(title: Text('Tag Event')),
-                      ListTile(title: Text('Your Avatar')),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                            color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Photo"),
+                          ]
+                      )),
+                      ListTile(title:
+                        Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Tag People"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Feeling/activity"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Check in"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Video"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Background Color"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.camera, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Camera"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("GIF"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Life Event"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Music"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Tag Event"),
+                          ]
+                      )),
+                      ListTile(title:
+                      Row(
+                          children:[
+                            Icon(FontAwesomeIcons.image, size: 22,
+                                color: Colors.green
+                            ),
+                            SizedBox(width: 10),
+                            Text("Your Avatar"),
+                          ]
+                      )),
                     ])
                   ],
                 ),
