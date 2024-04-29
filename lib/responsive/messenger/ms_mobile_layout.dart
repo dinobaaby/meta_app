@@ -55,9 +55,9 @@ class _MessageMobileLayoutState extends State<MessageMobileLayout> {
             height: 45,
             backgroundColor: ms_background_color,
             items: [
-              bottomNavigationBarItem(0, FontAwesomeIcons.comment, "Chats"),
-              bottomNavigationBarItem(1, Icons.people, "People"),
-              bottomNavigationBarItem(2, Icons.web_stories, "Stories"),
+              bottomNavigationBarItem(0, FontAwesomeIcons.comment),
+              bottomNavigationBarItem(1, Icons.people),
+              bottomNavigationBarItem(2, Icons.web_stories),
             ],
             onTap: navigationTaped,
           ),
@@ -65,14 +65,14 @@ class _MessageMobileLayoutState extends State<MessageMobileLayout> {
     );
   }
 
-  BottomNavigationBarItem bottomNavigationBarItem(int page, IconData icon, String lable){
+  BottomNavigationBarItem bottomNavigationBarItem(int page, IconData icon){
     return BottomNavigationBarItem(
       icon: Icon(
           icon,
           color: _page == page ? action_appbar_ms_color : Colors.grey,
           size: 25,
       ),
-      label: lable,
+
       backgroundColor: action_appbar_ms_color,
 
     );

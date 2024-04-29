@@ -2,6 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/firebase_options.dart';
 import 'package:meta_app/responsive/messenger/ms_mobile_layout.dart';
+import 'package:meta_app/screens/auth/login_screen.dart';
+import 'package:meta_app/screens/messenger/ms_home_screen.dart';
+import 'package:meta_app/screens/messenger/ms_people_screen.dart';
+import 'package:meta_app/screens/messenger/ms_search_screen.dart';
+import 'package:meta_app/screens/messenger/ms_stories_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 
 void main() async  {
@@ -27,6 +32,14 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
+      initialRoute: "/login",
+      routes: {
+        "": (_) => const MessengerHomeScreen(),
+        "/search": (_) => const MessengerSearchScreen(),
+        "/people" : (_) => const MessengerPeopleScreen(),
+        "/stories" : (_) => const MessengerStoriesScreen(),
+        "/login": (_) => const LoginScreen()
+      },
     );
   }
 }

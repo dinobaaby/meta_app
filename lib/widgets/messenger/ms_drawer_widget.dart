@@ -1,15 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
+import 'package:meta_app/widgets/messenger/ms_community_widget.dart';
 import 'package:meta_app/widgets/messenger/ms_drawer_action_widget.dart';
 
-class MessengerDrawerWidget extends StatelessWidget {
+class MessengerDrawerWidget extends StatefulWidget {
   const MessengerDrawerWidget({super.key});
 
   @override
+  State<MessengerDrawerWidget> createState() => _MessengerDrawerWidgetState();
+}
+
+class _MessengerDrawerWidgetState extends State<MessengerDrawerWidget> {
+
+
+  @override
   Widget build(BuildContext context) {
+
     return Drawer(
+      width: MediaQuery.of(context).size.width*0.85,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.zero,
@@ -18,9 +29,7 @@ class MessengerDrawerWidget extends StatelessWidget {
       ),
       backgroundColor: const Color.fromRGBO(38, 38, 38, 1.0),
       child: Container(
-
         padding: const EdgeInsets.all(10),
-
         child: Column(
           children: [
              Row(
@@ -33,14 +42,14 @@ class MessengerDrawerWidget extends StatelessWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         image: const DecorationImage(
-                          image: NetworkImage('https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/434056217_122166962690032993_6311323901949295455_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFNii-hKL4Hj8b-HmQhLQqiJhb4pS9FJvImFvilL0Um8vz7gtINLIjnK4NlXOTm4SZTX1-C_k05oG_jvrERSW0V&_nc_ohc=-fyCyuGTmmwAX9KKToC&_nc_ht=scontent.fhan5-10.fna&oh=00_AfCcMfDSIjn7KkD3aLdg0BgzpusELfaT0RiT4jgGr2PwDQ&oe=66034B61'),
-                          fit: BoxFit.cover
+                          image: NetworkImage("https://scontent.fhan5-8.fna.fbcdn.net/v/t39.30808-6/434163810_1151194212690675_8393077874314169787_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFcaq6mRwqmqKIui87tO0Vmgzkqmiop656DOSqaKinrnoUFbcpOaON2MvSrpoJKPZykmvRI1-zk9DBg48yLpccA&_nc_ohc=GRkr59DCx_4AX_EBgKw&_nc_ht=scontent.fhan5-8.fna&oh=00_AfAAjVZY7rVcdwZLqtL7l2F9BCtDKc8F4xJuRl_vj2T4lg&oe=660EE3FE"),
+                            fit: BoxFit.cover
                         ),
                         borderRadius: BorderRadius.circular(20)
                       ),
                     ),
                     const SizedBox(width: 10,),
-                    Text("Trịnh Hiếu", style: TextStyle(color: title_ms_color, fontSize: 15, fontWeight: FontWeight.w600),)
+                    const Text("Trịnh Hiếu", style: TextStyle(color: title_ms_color, fontSize: 15, fontWeight: FontWeight.w600),)
                   ],
                 ),
                 IconButton(
@@ -51,15 +60,15 @@ class MessengerDrawerWidget extends StatelessWidget {
 
               ],
             ),
-             const Expanded(
+            const Expanded(
                child: SingleChildScrollView(
                  child: Column(
                    children: [
                      SizedBox(height: 15,),
-                     MessengerDrawerActionWidget(isChecked: true,),
-                     MessengerDrawerActionWidget(isChecked: false,),
-                     MessengerDrawerActionWidget(isChecked: false),
-                     MessengerDrawerActionWidget(isChecked: false,),
+                     MessengerDrawerActionWidget(isChecked: true,title: "Chats", iconData: FontAwesomeIcons.comment,countNotifications: 5,),
+                     MessengerDrawerActionWidget(isChecked: false,title: "Marketplace", iconData: Icons.shopping_bag,countNotifications: 2,),
+                     MessengerDrawerActionWidget(isChecked: false, title: "Message requests",iconData: Icons.chat,countNotifications: 1,),
+                     MessengerDrawerActionWidget(isChecked: false,title: "Archive",iconData: Icons.storefront_rounded,countNotifications: 0,),
                      SizedBox(height:10),
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,23 +77,17 @@ class MessengerDrawerWidget extends StatelessWidget {
                          Text("Chỉnh sửa", style: TextStyle(color: action_appbar_ms_color, fontSize: 11),)
                        ],
                      ),
+                     SizedBox(height: 10,),
+                     MessengerCommunityWidget()
 
-               
-               
+
                    ],
-               
                  ),
-               
                ),
              )
-
           ],
         ),
-
-
-        
       ),
-
     );
   }
 }
