@@ -17,11 +17,17 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _sentController = TextEditingController();
   String _content = "";
-  List<String> _messages = [];
+  List<Message> _messages = [
+    Message(text: 'Hello', isMe: true),
+    Message(text: 'Hi', isMe: false),
+    Message(text: 'How are you?', isMe: true),
+    Message(text: 'Em thật sự cảm thấy khó hiểu sao giờ có vài bạn nữ các bạn ảo mạng đến kinh khủng thế ạ . Nói chuyện với các bạn mà các bạn chỉ biết đi sân si con này xinh con này không xinh hay là con này xấu hơn mình . Chứ mình thấy các bạn cũng xinh bình thường gọi là ưa nhìn chứ có phải hotgirl đâu mà sân si kinh thế ạ .?', isMe: true),
+    Message(text: 'I\'m good. What about you?', isMe: false),
+  ];
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     _focusNode.addListener(() {
       setState(() {
@@ -51,7 +57,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                       height: 40,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage("https://scontent.fhan5-8.fna.fbcdn.net/v/t39.30808-6/434163810_1151194212690675_8393077874314169787_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFcaq6mRwqmqKIui87tO0Vmgzkqmiop656DOSqaKinrnoUFbcpOaON2MvSrpoJKPZykmvRI1-zk9DBg48yLpccA&_nc_ohc=GRkr59DCx_4AX_EBgKw&_nc_ht=scontent.fhan5-8.fna&oh=00_AfAAjVZY7rVcdwZLqtL7l2F9BCtDKc8F4xJuRl_vj2T4lg&oe=660EE3FE"),
+                          image: AssetImage("assets/images/testImage.jpg"),
                             fit: BoxFit.cover
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(20))
@@ -89,7 +95,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
             ],
           ),
           backgroundColor: ms_background_color,
-          body: MessengerListContentChatWidget(),
+          body: MessengerListContentChatWidget(listMessage: _messages),
           bottomSheet: Container(
             height: 60,
             decoration: const BoxDecoration(
@@ -137,7 +143,14 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                     },
                   ),
                 ),
-                actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){}, iconData: (_content.isNotEmpty ?Icons.send : Icons.favorite), color:(_content.isNotEmpty ?Colors.blueAccent : Colors.red)),
+                actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){
+                  setState(() {
+                    _messages.add(new Message(text: _sentController.text, isMe: true));
+                    _sentController.text = "";
+
+                  });
+
+                }, iconData: (_content.isNotEmpty ?Icons.send : Icons.favorite), color:(_content.isNotEmpty ?Colors.blueAccent : Colors.red)),
 
 
               ],

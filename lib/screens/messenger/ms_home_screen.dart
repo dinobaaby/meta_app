@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meta_app/screens/messenger/create_new_message_screen.dart';
 import 'package:meta_app/screens/messenger/ms_search_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/ms_drawer_widget.dart';
@@ -45,7 +46,7 @@ class _MessengerHomeScreenState extends State<MessengerHomeScreen> {
               ),
             ),
             actions: [
-              IconButton(onPressed: (){}, icon: const Icon(FontAwesomeIcons.pen, size: 18,))
+              IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNewMessageScreen())), icon: const Icon(FontAwesomeIcons.pen, size: 18,))
             ],
           ),
           drawer: const MessengerDrawerWidget(),

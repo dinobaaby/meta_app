@@ -26,8 +26,7 @@ class MessengerChatWidget extends StatelessWidget {
                   height: 50,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage("https://scontent.fhan5-8.fna.fbcdn.net/v/t39.30808-6/434163810_1151194212690675_8393077874314169787_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFcaq6mRwqmqKIui87tO0Vmgzkqmiop656DOSqaKinrnoUFbcpOaON2MvSrpoJKPZykmvRI1-zk9DBg48yLpccA&_nc_ohc=GRkr59DCx_4AX_EBgKw&_nc_ht=scontent.fhan5-8.fna&oh=00_AfAAjVZY7rVcdwZLqtL7l2F9BCtDKc8F4xJuRl_vj2T4lg&oe=660EE3FE"),
-                          fit: BoxFit.cover
+                          image: AssetImage("assets/images/testImage.jpg"),fit: BoxFit.cover
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(25))
                   ),
@@ -82,8 +81,7 @@ class MessengerChatWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: 10),
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage("https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/434651852_1616363115799888_8289186369376195356_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGpHzSkBkVic0OCPYO63UVD_-m4t_ekG9X_6bi396Qb1dd5Khx8vcJPIkynnT_YXJoj9gUJHXcm-Xm6f8rCq2So&_nc_ohc=GaUW8XFZTxwAX-ltYCD&_nc_ht=scontent.fhan15-2.fna&oh=00_AfDJg5UNPIvY_4nANtqyCG7-XPTtLt5qVxYH8mBnt8AIQA&oe=660EEA27"),
-                  fit: BoxFit.cover,
+                  image: AssetImage("assets/images/testImage.jpg"),fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),

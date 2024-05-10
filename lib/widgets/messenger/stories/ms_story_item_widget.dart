@@ -12,8 +12,8 @@ class MessengerStoryItemWidget extends StatelessWidget {
           height: 240,
          decoration: BoxDecoration(
            image: const DecorationImage(
-             image: NetworkImage("https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/434456362_3599157587061574_725943163596973995_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFaqCZZlywSvvMPIPytAvkea0CgE5wjBvlrQKATnCMG-c6UNElMcOgTjcfFfHxYpMLpmb0jCb7m2Czp7bSq5os1&_nc_ohc=8seVWxjSd6IAX8oZN5w&_nc_ht=scontent.fhan2-3.fna&oh=00_AfDnZdaBOQSyIEuPhz3Jd3xa4tYzI3FEmVRHW0af6e0VuQ&oe=6611506E"),
-             fit: BoxFit.cover
+             image: AssetImage("assets/images/testImage.jpg"),
+               fit: BoxFit.cover
            ),
            borderRadius: BorderRadius.circular(15)
          ),
@@ -30,8 +30,7 @@ class MessengerStoryItemWidget extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 image: const DecorationImage(
-                  image: NetworkImage("https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-6/433105848_122134816658123903_123825777986155079_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGrSft4alyIM3OHGrQ5K-V5xRl5t9elgz3FGXm316WDPZc7bbfSfoKlFn4ewkJgCEYRo7L4H2qFDMooEjjFAnHk&_nc_ohc=O3_QjdosShoAX9PK5rA&_nc_ht=scontent.fhan20-1.fna&oh=00_AfBdxJs_ZzhHjiBge9poVCx9srv4YN2uuYGEi8jQiYqm0w&oe=6611434A"),
-                  fit: BoxFit.cover
+                  image: AssetImage("assets/images/testImage.jpg"),fit: BoxFit.cover
                 ),
                 border: Border.all(
                   width: 2,
