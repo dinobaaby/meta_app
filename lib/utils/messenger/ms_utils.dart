@@ -8,3 +8,11 @@ final ms_home_screen_items = [
   const MessengerStoriesScreen()
 ];
 
+
+bool isImage(String content){
+  final imagePatten = r".+\.(jpg|jpeg|png|gif)";
+  if(content.startsWith("http") || content.startsWith("https")){
+    return RegExp(imagePatten).matchAsPrefix(content) != null;
+  }
+  return RegExp(imagePatten).matchAsPrefix(content) != null;
+}
