@@ -18,7 +18,7 @@ class _MessengerNoteScreenState extends State<MessengerNoteScreen> {
           backgroundColor: ms_background_color,
 
         ),
-        body: Center(
+        body: const Center(
           child: Text("HI", style: TextStyle(color: Colors.white),),
         ),
 

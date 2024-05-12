@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/screens/messenger/ms_story_details.dart';
 
 class MessengerStoryItemWidget extends StatelessWidget {
   const MessengerStoryItemWidget({super.key});
@@ -7,16 +8,21 @@ class MessengerStoryItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.45,
-          height: 240,
-         decoration: BoxDecoration(
-           image: const DecorationImage(
-             image: AssetImage("assets/images/testImage.jpg"),
-               fit: BoxFit.cover
+        InkWell(
+          onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => MessengerStoryDetails()));
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.45,
+            height: 240,
+           decoration: BoxDecoration(
+             image: const DecorationImage(
+               image: AssetImage("assets/images/testImage.jpg"),
+                 fit: BoxFit.cover
+             ),
+             borderRadius: BorderRadius.circular(5)
            ),
-           borderRadius: BorderRadius.circular(15)
-         ),
+          ),
         ),
         Positioned(
             top: 15,
@@ -53,7 +59,7 @@ class MessengerStoryItemWidget extends StatelessWidget {
                 ),
             child: const Text("1", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
         )),
-        Positioned(
+        const Positioned(
             bottom: 15,
             left: 15,
             child: Text("Chu minh duc", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),)
