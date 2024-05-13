@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/widgets/messenger/stories/ms_story_video_header.dart';
+import 'package:meta_app/widgets/messenger/stories/ms_story_video_reaction_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class MsStoryVideoWidget extends StatefulWidget {
@@ -11,6 +13,7 @@ class MsStoryVideoWidget extends StatefulWidget {
 class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
   late VideoPlayerController _controller;
   bool _isPlaying = false;
+  double? _videoHeight;
 
   @override
   void initState() {
@@ -18,8 +21,10 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
     _controller = VideoPlayerController.network(
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
+        setState(() {
+          _controller.play();
+          _videoHeight = _controller.value.size.height;
+        });
       });
 
     _controller.addListener(() {
@@ -29,23 +34,46 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
         });
       }
     });
+    // _controller.addListener(() {
+    //   if(_controller.value.isCompleted){
+    //     Navigator.of(context).pushNamed("/");
+    //   }
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onLongPressStart: (details) {
         setState(() {
-          _controller.value.isPlaying
-              ? _controller.pause()
-              : _controller.play();
+          _controller.pause();
+        });
+      },
+      onLongPressMoveUpdate: (details) {
+        setState(() {
+          _controller.pause();
+        });
+      },
+      onLongPressEnd: (details) {
+        setState(() {
+          _controller.play();
         });
       },
       child: Stack(
         children: [
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height - 200,
+            height: double.infinity,
+            decoration: const BoxDecoration(color: Colors.black),
+          ),
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(
+                vertical: _videoHeight == null
+                    ? 0
+                    : (MediaQuery.of(context).size.height - _videoHeight!) *
+                    2,
+                horizontal: 0),
             color: Colors.black,
             child: _controller.value.isInitialized
                 ? AspectRatio(
@@ -54,9 +82,24 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
             )
                 : const Center(child: CircularProgressIndicator()),
           ),
+           Positioned(
+              top: 20,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width, // Use the parent's width
+                child: const MsStoryVideoHeaderWidget(),
+              ),
+          ),
+          Positioned(
+            bottom: 20,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width, // Use the parent's width
+              child: const MsStoryVideoReactionWidget(),
+            ),
+          ),
+
           if (_controller.value.isInitialized)
             Positioned(
-              bottom: 0,
+              top: 10,
               left: 0,
               right: 0,
               child: GestureDetector(
@@ -70,8 +113,7 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
                   final double minSliderValue = 0.0;
                   final double currentPositionInSeconds =
                   _controller.value.position.inSeconds.toDouble();
-                  final double newPositionInSeconds =
-                  (currentPositionInSeconds +
+                  final double newPositionInSeconds = (currentPositionInSeconds +
                       (details.primaryDelta! / context.size!.width) *
                           videoDurationInSeconds)
                       .clamp(minSliderValue, maxSliderValue);
@@ -81,9 +123,12 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
                   _controller.play();
                 },
                 child: Container(
-                  height: 10,
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  color: Colors.black.withOpacity(0),
+                  height: 8,
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black.withOpacity(0),
+                  ),
                   child: VideoProgressIndicator(
                     _controller,
                     allowScrubbing: true,
@@ -96,6 +141,7 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
                 ),
               ),
             ),
+
         ],
       ),
     );
@@ -107,3 +153,4 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
     super.dispose();
   }
 }
+
