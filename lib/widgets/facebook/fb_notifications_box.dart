@@ -49,12 +49,12 @@ class Notification_Card extends StatelessWidget {
             children: [
               const CircleAvatar(
                 child: Text("VH"),
-                maxRadius:35,
+                maxRadius:30,
               ),
               const SizedBox(width: 8.0),
               Container(
                 constraints: const BoxConstraints(
-                    maxWidth: 300
+                    maxWidth: 280
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

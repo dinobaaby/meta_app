@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meta_app/widgets/facebook/fb_shorcut_widget.dart';
 
 import '../../utils/facebook/fb_colors.dart';
-import '../../widgets/facebook/FB_List_Button.dart';
+import '../../widgets/facebook/fb_list_button.dart';
 import '../../widgets/facebook/fb_list_action_widget.dart';
 
 class MenusPage extends StatelessWidget {

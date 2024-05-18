@@ -10,17 +10,13 @@ class FB_ListAction extends StatefulWidget {
 }
 
 class _FB_ListActionState extends State<FB_ListAction> {
-  int visibleRowCount = 4; // Số lượng hàng được hiển thị ban đầu
-  bool isExpanded = false; // Biến để kiểm soát việc mở rộng
+  int visibleRowCount = 4;
+  bool isExpanded = false;
 
   @override
-
-
   Widget build(BuildContext context) {
 
-    return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      shrinkWrap: true,
+    return Column(
       children: [
         for (int i = 0; i < visibleRowCount; i++)
           const Row(
@@ -87,7 +83,7 @@ class FB_Action_Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
+      width: MediaQuery.of(context).size.width/2.3,
       height: 80,
       margin:const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
