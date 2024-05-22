@@ -75,6 +75,7 @@ class _FBVideoPostsWidgetState extends State<FBVideoPostsWidget> {
           ),
           const VideoWidget(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: listButton.map((e) => e).toList(),
           )
         ],

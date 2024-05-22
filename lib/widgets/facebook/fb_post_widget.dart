@@ -107,6 +107,7 @@ class _FBPostWidgetState extends State<FBPostWidget> {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: listButton.map((e) => e).toList(),
           )
         ],
