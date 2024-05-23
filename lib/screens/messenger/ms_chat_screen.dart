@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:meta_app/screens/messenger/ms_setting_chat_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/ms_list_content_chat_widget.dart';
 
@@ -23,7 +24,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
     Message(text: 'How are you?', isMe: true),
     Message(text: 'Em thật sự cảm thấy khó hiểu sao giờ có vài bạn nữ các bạn ảo mạng đến kinh khủng thế ạ . Nói chuyện với các bạn mà các bạn chỉ biết đi sân si con này xinh con này không xinh hay là con này xấu hơn mình . Chứ mình thấy các bạn cũng xinh bình thường gọi là ưa nhìn chứ có phải hotgirl đâu mà sân si kinh thế ạ .?', isMe: true),
     Message(text: 'I\'m good. What about you?', isMe: false),
-    Message(text: "https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/441493473_3705867713002307_569700167724644799_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEoCFW782GivrjP-V604TjkZX7M-ksBYx1lfsz6SwFjHSQQqX1Hj_n2FGtiYJdfDqctAJEsCLRZPi4dJQff37NA&_nc_ohc=S2DBW3H2RakQ7kNvgFP9Uka&_nc_ht=scontent.fsgn5-5.fna&oh=00_AYBE5fML0Nv0BXR4Tn43v_3VyWISCgKR_7Jp9KhVIyiPYw&oe=66440B97", isMe: false),
+    Message(text: "https://i.pinimg.com/736x/c9/af/92/c9af9269b33ad70ac936815e6681c28c.jpg", isMe: false),
   ];
 
   @override
@@ -49,46 +50,50 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: ms_background_color,
-            title: Row(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/testImage.jpg"),
-                            fit: BoxFit.cover
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))
-                      ),
-                    ),
-                    Positioned(
-                        bottom: 2,
-                        right: 0,
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: const BorderRadius.all(Radius.circular(5)),
-                            border: Border.all(color: Colors.black, width: 1)
-                          ),
-                        )
-                    )
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: const Column(
+            title: InkWell(
+
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MsSettingChatScreen())),
+              child: Row(
+                children: [
+                  Stack(
                     children: [
-                      Text("Dino dev", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
-                      Text("Active now", style: TextStyle(color: Colors.grey,  fontSize: 12),),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/testImage.jpg"),
+                              fit: BoxFit.cover
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(20))
+                        ),
+                      ),
+                      Positioned(
+                          bottom: 2,
+                          right: 0,
+                          child: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: const BorderRadius.all(Radius.circular(5)),
+                              border: Border.all(color: Colors.black, width: 1)
+                            ),
+                          )
+                      )
                     ],
                   ),
-                )
-              ],
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: const Column(
+                      children: [
+                        Text("Dino dev", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                        Text("Active now", style: TextStyle(color: Colors.grey,  fontSize: 12),),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             actions:  [
               IconButton(onPressed: (){}, icon: const Icon(Icons.phone, color: Colors.purple,)),
