@@ -190,8 +190,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                         Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.peopleRobbery, size: 22,
+                                color: Colors.blue
                             ),
                             SizedBox(width: 10),
                             Text("Tag People"),
@@ -200,8 +200,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.faceDizzy, size: 22,
+                                color: Colors.yellow
                             ),
                             SizedBox(width: 10),
                             Text("Feeling/activity"),
@@ -210,8 +210,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.locationDot, size: 22,
+                                color: Colors.redAccent
                             ),
                             SizedBox(width: 10),
                             Text("Check in"),
@@ -220,8 +220,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.video, size: 22,
+                                color: Colors.red
                             ),
                             SizedBox(width: 10),
                             Text("Video"),
@@ -230,8 +230,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.font, size: 22,
+                                color: Colors.lightBlue
                             ),
                             SizedBox(width: 10),
                             Text("Background Color"),
@@ -241,7 +241,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.camera, size: 22,
-                                color: Colors.green
+                                color: Colors.blueAccent
                             ),
                             SizedBox(width: 10),
                             Text("Camera"),
@@ -250,7 +250,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
+                            Icon(FontAwesomeIcons.gift, size: 22,
                                 color: Colors.green
                             ),
                             SizedBox(width: 10),
@@ -260,8 +260,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.calendar, size: 22,
+                                color: Colors.blueAccent
                             ),
                             SizedBox(width: 10),
                             Text("Life Event"),
@@ -270,8 +270,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.music, size: 22,
+                                color: Colors.orange
                             ),
                             SizedBox(width: 10),
                             Text("Music"),
@@ -280,8 +280,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.calendar, size: 22,
+                                color: Colors.redAccent
                             ),
                             SizedBox(width: 10),
                             Text("Tag Event"),
@@ -290,8 +290,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ListTile(title:
                       Row(
                           children:[
-                            Icon(FontAwesomeIcons.image, size: 22,
-                                color: Colors.green
+                            Icon(FontAwesomeIcons.user, size: 22,
+                                color: Colors.red
                             ),
                             SizedBox(width: 10),
                             Text("Your Avatar"),

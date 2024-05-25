@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meta_app/models/facebook/post.model.dart';
 import 'package:meta_app/screens/facebook/fb_create_post_screen.dart';
 import 'package:meta_app/widgets/facebook/fb_post_widget.dart';
 
@@ -65,9 +66,14 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              const FBPostWidget(),
-              const FBPostWidget(),
-              const FBPostWidget()
+               ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  return FBPostWidget(post: posts[index]);
+                },
+              ),
             ],
           ),
         ),

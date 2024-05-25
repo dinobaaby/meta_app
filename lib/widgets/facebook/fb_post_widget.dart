@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/models/facebook/post.model.dart';
 import 'package:meta_app/widgets/facebook/fb_text_button_widget.dart';
 import 'package:multi_image_layout/image_model.dart';
 import 'package:multi_image_layout/multi_image_viewer.dart';
@@ -7,7 +8,9 @@ import 'package:readmore/readmore.dart';
 import '../../utils/facebook/fb_colors.dart';
 
 class FBPostWidget extends StatefulWidget {
-  const FBPostWidget({super.key});
+  final PostFacebookModel post;
+
+  const FBPostWidget({super.key, required this.post});
 
   @override
   State<FBPostWidget> createState() => _FBPostWidgetState();
@@ -23,13 +26,13 @@ class _FBPostWidgetState extends State<FBPostWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Row(
+           Row(
             children: [
               CircleAvatar(
+                backgroundImage: NetworkImage(widget.post.profileImg),
                 backgroundColor: Colors.blue,
-                child: Text('AH'),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -37,19 +40,19 @@ class _FBPostWidgetState extends State<FBPostWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Name",
-                      style: TextStyle(
+                      widget.post.userName,
+                      style: const TextStyle(
                           fontSize: 12, color: button_bottombar_not_selected),
                     ),
                     Row(
                       children: [
                         Text(
-                          "Time - ",
-                          style: TextStyle(
+                          widget.post.createdAt.toString(),
+                          style: const TextStyle(
                               fontSize: 8,
                               color: button_bottombar_not_selected),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.public,
                           size: 12,
                         )
@@ -63,43 +66,21 @@ class _FBPostWidgetState extends State<FBPostWidget> {
           const SizedBox(
             height: 10,
           ),
-          const ReadMoreText(
-            'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
+           ReadMoreText(
+            widget.post.content,
             trimLines: 2,
-            style: TextStyle(fontSize: 12, color: Colors.black),
+            style: const TextStyle(fontSize: 12, color: Colors.black),
             trimMode: TrimMode.Line,
             trimCollapsedText: 'Show more',
-            moreStyle: TextStyle(fontSize: 11),
+            moreStyle: const TextStyle(fontSize: 11),
           ),
           const SizedBox(
             height: 10,
           ),
           MultiImageViewer(
-            images: [
-              ImageModel(
-                imageUrl:
-                    "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/8719688791.jpg",
-                caption: "A caption here",
-              ),
-              ImageModel(
-                  imageUrl:
-                      "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/4086993630.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://2.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/5713335642.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://1.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/6294874831.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/8719688791.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://3.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/4086993630.jpg"),
-              ImageModel(
-                  imageUrl:
-                      "https://2.img-dpreview.com/files/p/TS250x250~sample_galleries/3800753625/5713335642.jpg"),
-            ],
+            images: widget.post.imageUrls
+              .map((url) => ImageModel(imageUrl: url))
+              .toList(),
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 23,

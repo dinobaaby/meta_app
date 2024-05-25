@@ -26,6 +26,7 @@ dependencies:
   multi_image_layout: ^0.1.1
   readmore: ^2.2.0
   video_player: ^2.8.3
+  faker: ^2.1.0
 
 
 

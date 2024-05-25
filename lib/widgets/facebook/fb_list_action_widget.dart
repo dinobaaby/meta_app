@@ -18,36 +18,50 @@ class _FB_ListActionState extends State<FB_ListAction> {
 
     return Column(
       children: [
-        for (int i = 0; i < visibleRowCount; i++)
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FB_Action_Item(),
-              FB_Action_Item(),
+              FB_Action_Item(name: "Group", icons: Icons.group),
+              FB_Action_Item(name: "Saved", icons: Icons.save),
             ],
           ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FB_Action_Item(name: "Memories",icons: Icons.group),
+            FB_Action_Item(name: "Pages", icons: Icons.group),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FB_Action_Item(name: "Video", icons: Icons.group),
+            FB_Action_Item(name: "Marketplace", icons: Icons.group),
+          ],
+        ),
+
         if (isExpanded)
-          const Column(
+           Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FB_Action_Item(),
-                  FB_Action_Item(),
+                  FB_Action_Item(name: "Friends", icons: Icons.group),
+                  FB_Action_Item(name: "Feeds", icons: Icons.group),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FB_Action_Item(),
-                  FB_Action_Item(),
+                  FB_Action_Item(name: "Avatar", icons: Icons.person),
+                  FB_Action_Item(name: "Brithday", icons: Icons.group),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FB_Action_Item(),
-                  FB_Action_Item(),
+                  FB_Action_Item(name: "Dating", icons: Icons.group),
+                  FB_Action_Item(name: "Events", icons: Icons.group),
                 ],
               ),
             ],
@@ -62,7 +76,6 @@ class _FB_ListActionState extends State<FB_ListAction> {
           child: TextButton(
             onPressed: () {
               setState(() {
-                // Khi nút được nhấn, chuyển đổi trạng thái mở rộng
                 isExpanded = !isExpanded;
               });
             },
@@ -75,11 +88,18 @@ class _FB_ListActionState extends State<FB_ListAction> {
   }
 }
 
-class FB_Action_Item extends StatelessWidget {
-  const FB_Action_Item({
-    super.key,
-  });
 
+class FB_Action_Item extends StatefulWidget {
+  final String name;
+  final IconData icons;
+
+   FB_Action_Item({super.key, required this.name, required this.icons});
+
+  @override
+  State<FB_Action_Item> createState() => _FB_Action_ItemState();
+}
+
+class _FB_Action_ItemState extends State<FB_Action_Item> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -102,12 +122,12 @@ class FB_Action_Item extends StatelessWidget {
         children: [
           Container(
             padding:const EdgeInsets.only(left: 10),
-            child: const Icon(Icons.groups, color: Colors.blueAccent,),
+            child:  Icon(widget.icons, color: Colors.blueAccent,),
           ),
           Container(
             padding:const EdgeInsets.only(left: 5),
-            child: const Text(
-              "Group",
+            child:  Text(
+              widget.name,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -119,3 +139,4 @@ class FB_Action_Item extends StatelessWidget {
     );
   }
 }
+
