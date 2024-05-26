@@ -1,20 +1,22 @@
+import 'dart:math';
+
 import 'package:faker/faker.dart';
 
-class PostFacebookModel {
-  final String postId;
+class VideoFacebookModel {
+  final String videoId;
   final String content;
   final String userId;
-  final List<String> imageUrls;
+  final String videoUrl;
   final DateTime createdAt;
   final String profileImg;
   final String userName;
   final int likes;
 
-  const PostFacebookModel({
-    required this.postId,
+  const VideoFacebookModel({
+    required this.videoId,
     required this.content,
     required this.userId,
-    required this.imageUrls,
+    required this.videoUrl,
     required this.createdAt,
     required this.profileImg,
     required this.userName,
@@ -22,22 +24,22 @@ class PostFacebookModel {
   });
 
   Map<String, dynamic> toJson() => {
-        "postId": postId,
+        "videoId": videoId,
         "content": content,
         "userId": userId,
-        "imageUrls": imageUrls,
+        "videoUrl": videoUrl,
         "createdAt": createdAt.toIso8601String(),
         "profileImg": profileImg,
         "userName": userName,
         "likes": likes,
       };
 
-  factory PostFacebookModel.fromJson(Map<String, dynamic> json) {
-    return PostFacebookModel(
-      postId: json['postId'],
+  factory VideoFacebookModel.fromJson(Map<String, dynamic> json) {
+    return VideoFacebookModel(
+      videoId: json['videoId'],
       content: json['content'],
       userId: json['userId'],
-      imageUrls: List<String>.from(json['imageUrls']),
+      videoUrl: json['videoUrl'],
       createdAt: DateTime.parse(json['createdAt']),
       profileImg: json['profileImg'],
       userName: json['userName'],
@@ -48,13 +50,15 @@ class PostFacebookModel {
 
 final faker = Faker();
 
-final posts = List.generate(
+final videos = List.generate(
     10,
-    (index) => PostFacebookModel(
-          postId: faker.guid.guid(),
+    (index) => VideoFacebookModel(
+          videoId: faker.guid.guid(),
           content: faker.lorem.sentence(),
           userId: faker.guid.guid(),
-          imageUrls: List.generate(5, (_) => faker.image.image()),
+          videoUrl:
+              'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+          // chưa biết generate videoUrl như nào =)))
           createdAt: faker.date.dateTime(),
           profileImg: faker.image.image(),
           userName: faker.person.firstName(),

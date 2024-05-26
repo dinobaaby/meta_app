@@ -41,32 +41,32 @@ class HomePage extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(15.0),
-                      child: CircleAvatar(
-                        child: Text("VH")
-                      ),
+                      child: CircleAvatar(child: Text("VH")),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                         child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const CreatePostScreen()),
-                            );
-                          },
-                          child: const Text("What's your mind ?"),
-                        )
-                    ),
-                    IconButton(onPressed: () {}, icon: const Icon(
-                      Icons.photo_library,
-                      color: Colors.green,
-                      size: 30.0,
-                    ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CreatePostScreen()),
+                        );
+                      },
+                      child: const Text("What's your mind ?"),
+                    )),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.photo_library,
+                        color: Colors.green,
+                        size: 30.0,
+                      ),
                     ),
                   ],
                 ),
               ),
-               ListView.builder(
+              ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: posts.length,
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-      ) ,
+      ),
     );
   }
 }
