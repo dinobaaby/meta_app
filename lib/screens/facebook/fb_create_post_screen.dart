@@ -68,7 +68,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                       TextButton(
                                         style: TextButton.styleFrom(
                                           foregroundColor: const Color.fromRGBO(25, 128, 241, 1.0),
-                                          backgroundColor: background_button_color,
+                                          backgroundColor: button_background_color,
                                           shape:  RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(9),
                                           ),
@@ -96,7 +96,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                       TextButton(
                                         style: TextButton.styleFrom(
                                           foregroundColor: const Color.fromRGBO(25, 128, 241, 1.0),
-                                          backgroundColor: background_button_color,
+                                          backgroundColor: button_background_color,
                                           shape:  RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(9),
                                           ),

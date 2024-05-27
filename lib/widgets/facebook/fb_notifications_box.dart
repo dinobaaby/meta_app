@@ -54,7 +54,7 @@ class Notification_Card extends StatelessWidget {
               const SizedBox(width: 8.0),
               Container(
                 constraints: const BoxConstraints(
-                    maxWidth: 280
+                    maxWidth: 260
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
