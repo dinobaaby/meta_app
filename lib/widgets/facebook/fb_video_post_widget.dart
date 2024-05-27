@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/models/facebook/video.model.dart';
 import 'package:meta_app/widgets/facebook/fb_text_button_widget.dart';
 import 'package:meta_app/widgets/facebook/fb_video_widget.dart';
 import 'package:readmore/readmore.dart';
@@ -6,8 +7,9 @@ import 'package:readmore/readmore.dart';
 import '../../utils/facebook/fb_colors.dart';
 
 class FBVideoPostsWidget extends StatefulWidget {
-  const FBVideoPostsWidget({super.key});
+  final VideoFacebookModel video;
 
+  const FBVideoPostsWidget({super.key, required this.video});
   @override
   State<FBVideoPostsWidget> createState() => _FBVideoPostsWidgetState();
 }
@@ -22,13 +24,13 @@ class _FBVideoPostsWidgetState extends State<FBVideoPostsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Row(
+          Row(
             children: [
               CircleAvatar(
+                backgroundImage: NetworkImage(widget.video.profileImg),
                 backgroundColor: Colors.blue,
-                child: Text('AH'),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -36,19 +38,19 @@ class _FBVideoPostsWidgetState extends State<FBVideoPostsWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Name",
-                      style: TextStyle(
+                      widget.video.userName,
+                      style: const TextStyle(
                           fontSize: 12, color: button_bottombar_not_selected),
                     ),
                     Row(
                       children: [
                         Text(
-                          "Time - ",
-                          style: TextStyle(
+                          "${widget.video.createdAt} - ",
+                          style: const TextStyle(
                               fontSize: 8,
                               color: button_bottombar_not_selected),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.public,
                           size: 12,
                         )
@@ -62,18 +64,21 @@ class _FBVideoPostsWidgetState extends State<FBVideoPostsWidget> {
           const SizedBox(
             height: 10,
           ),
-          const ReadMoreText(
-            'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
+          ReadMoreText(
+            widget.video.content,
             trimLines: 2,
-            style: TextStyle(fontSize: 12, color: Colors.black),
+            style: const TextStyle(fontSize: 12, color: Colors.black),
             trimMode: TrimMode.Line,
             trimCollapsedText: 'Show more',
-            moreStyle: TextStyle(fontSize: 11),
+            moreStyle: const TextStyle(fontSize: 11),
           ),
           const SizedBox(
             height: 10,
           ),
-          const VideoWidget(),
+          VideoWidget(
+            videoUrl:
+                "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: listButton.map((e) => e).toList(),

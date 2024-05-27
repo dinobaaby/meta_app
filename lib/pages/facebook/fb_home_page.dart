@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meta_app/models/facebook/post.model.dart';
+import 'package:meta_app/screens/facebook/fb_create_post_screen.dart';
 import 'package:meta_app/widgets/facebook/fb_post_widget.dart';
 
 import '../../utils/facebook/fb_colors.dart';
@@ -39,35 +41,43 @@ class HomePage extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(15.0),
-                      child: CircleAvatar(
-                        child: Text("VH")
-                      ),
+                      child: CircleAvatar(child: Text("VH")),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                         child: InkWell(
-                          onTap: () {
-                            print("tapped on container");
-                          },
-                          child: const Text("What's your mind ?"),
-                        )
-                    ),
-                    IconButton(onPressed: () {}, icon: const Icon(
-                      Icons.photo_library,
-                      color: Colors.green,
-                      size: 30.0,
-                    ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CreatePostScreen()),
+                        );
+                      },
+                      child: const Text("What's your mind ?"),
+                    )),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.photo_library,
+                        color: Colors.green,
+                        size: 30.0,
+                      ),
                     ),
                   ],
                 ),
               ),
-              const FBPostWidget(),
-              const FBPostWidget(),
-              const FBPostWidget()
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  return FBPostWidget(post: posts[index]);
+                },
+              ),
             ],
           ),
         ),
-      ) ,
+      ),
     );
   }
 }

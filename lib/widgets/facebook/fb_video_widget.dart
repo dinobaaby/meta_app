@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
-  const VideoWidget({super.key});
+  final String videoUrl;
+  const VideoWidget({super.key, required this.videoUrl});
 
   @override
   VideoWidgetState createState() => VideoWidgetState();
@@ -17,8 +18,7 @@ class VideoWidgetState extends State<VideoWidget> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.networkUrl(
-      Uri.parse(
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
+      Uri.parse(widget.videoUrl),
       videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
     );
 
