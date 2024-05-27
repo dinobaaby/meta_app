@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/firebase_options.dart';
+import 'package:meta_app/pages/facebook/fb_home_page.dart';
+import 'package:meta_app/pages/facebook/fb_profile_user_page.dart';
+import 'package:meta_app/screens/facebook/fb_home_screen.dart';
 
 void main() async  {
-  WidgetsFlutterBinding.ensureInitialized(); // Add this line
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
@@ -11,17 +14,14 @@ void main() async  {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key); // Fixing the constructor
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( // Wrapping with MaterialApp
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World'),
-        ),
-      ),
+    return MaterialApp(
+      home: HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
+
