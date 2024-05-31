@@ -1,16 +1,75 @@
+
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../models/users.model.dart';
+import '../../services/firebase_service.dart';
 import '../../utils/facebook/fb_colors.dart';
 
 class CreatePostScreen extends StatefulWidget {
-  const CreatePostScreen({super.key});
+  final User user;
+   CreatePostScreen({super.key, required this.user});
 
   @override
   State<CreatePostScreen> createState() => _CreatePostScreenState();
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
+  final TextEditingController _contentController = TextEditingController();
+  List<File> _images = [];
+  final AuthService _authService = AuthService();
+
+  Future<void> _pickImages() async {
+    final pickedFiles = await ImagePicker().pickMultiImage();
+    setState(() {
+      _images = pickedFiles.map((pickedFile) => File(pickedFile.path)).toList();
+    });
+    }
+
+  Future<void> _createPost() async {
+    if (_contentController.text.isNotEmpty || _images.isNotEmpty) {
+      try {
+        List<String> imageUrls = await _uploadImages();
+        await _authService.createPost(
+          userId: widget.user.uid,
+          content: _contentController.text,
+          imageUrls: imageUrls,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Post Created Successfully')),
+        );
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${e.toString()}')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please add content or images')),
+      );
+    }
+  }
+
+  Future<List<String>> _uploadImages() async {
+    List<String> imageUrls = [];
+    for (File image in _images) {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference = FirebaseStorage.instance.ref().child('posts/$fileName');
+      UploadTask uploadTask = storageReference.putFile(image as File);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String imageUrl = await taskSnapshot.ref.getDownloadURL();
+      imageUrls.add(imageUrl);
+    }
+    return imageUrls;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +84,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           Navigator.pop(context);
         }, icon: const Icon(FontAwesomeIcons.xmark)),
         actions: [
-          TextButton(onPressed: (){},
+          TextButton(onPressed: _createPost,
               child: const Text("Next",
                 style: TextStyle(fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -43,10 +102,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      child: Text('AH'),
-                    ),
+                     CircleAvatar(
+                      child: CachedNetworkImage(
+                        imageUrl: widget.user.avatarUrl ,
+                      ),
+                      ) ,
+
                     const SizedBox(
                       width: 5,
                     ),
@@ -54,9 +115,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Name",
-                            style: TextStyle(
+                           Text(
+                            widget.user.name,
+                            style: const TextStyle(
                                 fontSize: 12, color: button_bottombar_not_selected),
                           ),
                           Row(
@@ -126,12 +187,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ],
                 ),
                 const SizedBox(height: 10,),
-                const SizedBox(
+                 SizedBox(
                   height:400,
                   child: TextField(
+                    controller: _contentController,
                     cursorColor: Colors.purple,
                     maxLines: 100,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "What's your mind?",
                     ),
@@ -176,9 +238,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         ),
                       ),
                     ),
-                    SliverList.list(children: const [
+                    SliverList.list(children: [
                       ListTile(title:
-                      Row(
+                      const Row(
                           children:[
                             Icon(FontAwesomeIcons.image, size: 22,
                             color: Colors.green
@@ -186,8 +248,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             SizedBox(width: 10),
                             Text("Photo"),
                           ]
-                      )),
-                      ListTile(title:
+                      )
+                          ,onTap: _pickImages,
+                      ),
+                      const ListTile(title:
                         Row(
                           children:[
                             Icon(FontAwesomeIcons.peopleRobbery, size: 22,
@@ -197,7 +261,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Tag People"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.faceDizzy, size: 22,
@@ -207,7 +271,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Feeling/activity"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.locationDot, size: 22,
@@ -217,7 +281,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Check in"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.video, size: 22,
@@ -227,7 +291,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Video"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.font, size: 22,
@@ -237,7 +301,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Background Color"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.camera, size: 22,
@@ -247,7 +311,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Camera"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.gift, size: 22,
@@ -257,7 +321,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("GIF"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.calendar, size: 22,
@@ -267,7 +331,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Life Event"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.music, size: 22,
@@ -277,7 +341,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Music"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.calendar, size: 22,
@@ -287,7 +351,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Text("Tag Event"),
                           ]
                       )),
-                      ListTile(title:
+                      const ListTile(title:
                       Row(
                           children:[
                             Icon(FontAwesomeIcons.user, size: 22,

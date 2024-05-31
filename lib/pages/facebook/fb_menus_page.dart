@@ -1,13 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/widgets/facebook/fb_shorcut_widget.dart';
 
+import '../../models/users.model.dart';
 import '../../utils/facebook/fb_colors.dart';
 import '../../widgets/facebook/fb_list_button.dart';
 import '../../widgets/facebook/fb_list_action_widget.dart';
 
-class MenusPage extends StatelessWidget {
-  const MenusPage({super.key});
+class MenusPage extends StatefulWidget {
+  final User user;
+   MenusPage({super.key, required this.user});
+
+  @override
+  State<MenusPage> createState() => _MenusPageState();
+}
+
+class _MenusPageState extends State<MenusPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +49,13 @@ class MenusPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Row(
+                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          child: Text("VH"),
+                          backgroundImage: NetworkImage(widget.user.avatarUrl),
                         ),
-                        SizedBox(width: 8,),
-                        Text("Nguyễn Việt Hoàng"),
+                        const SizedBox(width: 8,),
+                        Text(widget.user.name),
                       ],
                     ),
                     FloatingActionButton.small(
@@ -62,15 +70,15 @@ class MenusPage extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
-                child: const Column(
+                child: Column(
                   children: [
-                    Align(
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child:Text("Your Shortcuts")
                     ),
-                    FB_ShortcutWidget(),
-                    SizedBox(height: 10,),
-                    FB_ListAction(),
+                    const FB_ShortcutWidget(),
+                    const SizedBox(height: 10,),
+                    const FB_ListAction(),
                     FB_List_Button()
                   ],
                 ),

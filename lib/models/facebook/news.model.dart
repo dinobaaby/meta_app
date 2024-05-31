@@ -1,7 +1,5 @@
 
 
-
-
 class NewsFacebookModel{
   final String newsId;
   final String content;
@@ -34,7 +32,6 @@ class NewsFacebookModel{
       "userName": userName,
       "likes": likes
   };
-
 
 
 
