@@ -40,8 +40,8 @@ class FB_Shortcut_Icon extends StatelessWidget {
           Stack(
             children: [
               Container(
-                width: 75,
-                height: 75,
+                width: 70,
+                height: 70,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.red,
