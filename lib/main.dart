@@ -1,27 +1,39 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/firebase_options.dart';
-import 'package:meta_app/pages/facebook/fb_home_page.dart';
-import 'package:meta_app/pages/facebook/fb_profile_user_page.dart';
+import 'package:meta_app/screens/auth/login_screen.dart';
 import 'package:meta_app/screens/facebook/fb_home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
       debugShowCheckedModeBanner: false,
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return snapshot.data != null ? HomeScreen() : LoginScreen();
+            }
+          }
+        },
+      ),
     );
   }
 }
-

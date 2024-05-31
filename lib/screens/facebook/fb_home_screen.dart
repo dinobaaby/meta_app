@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/models/users.model.dart';
+import 'package:meta_app/services/firebase_service.dart';
 import 'package:meta_app/utils/facebook/fb_colors.dart';
 import '../../pages/facebook/fb_pages.dart';
 
@@ -11,15 +13,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  User? _user;
+  final AuthService _authService = AuthService();
 
-  final List<Widget> _pages = [
-    HomePage(),
-    WatchPage(),
-    MarketPlacePage(),
-    AnalyticsPage(),
-    NotificationsPage(),
-    MenusPage(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    loadCurrentUser();
+  }
+
+  Future loadCurrentUser() async {
+    User? user = await _authService.getCurrentUser();
+    setState(() {
+      _user = user;
+    });
+  }
+
+  List<Widget> _pages( User user){
+    return[
+      HomePage(user: user),
+      WatchPage(),
+      MarketPlacePage(),
+      AnalyticsPage(),
+      NotificationsPage(),
+      MenusPage(user: user),
+    ];
+  }
 
   void _onNavigationItemSelected(int index) {
     setState(() {
@@ -30,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: _user == null
+          ? const Center(child: CircularProgressIndicator())
+          : _pages(_user!)[_currentIndex],
       bottomNavigationBar: _NavigationBar(
         onItemSelected: _onNavigationItemSelected,
         currentIndex: _currentIndex,
@@ -38,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
 class _NavigationBar extends StatelessWidget {
   const _NavigationBar({
     super.key,
