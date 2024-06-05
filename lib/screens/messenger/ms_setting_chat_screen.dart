@@ -15,6 +15,59 @@ class MsSettingChatScreen extends StatefulWidget {
 }
 
 class _MsSettingChatScreenState extends State<MsSettingChatScreen> {
+
+
+  handleShowTopic(){
+    showModalBottomSheet(context: context, builder: (BuildContext context){
+      return Container(
+        height: MediaQuery.of(context).size.height*0.9,
+        color: const Color.fromRGBO(56, 50, 50, 1.0),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        child: SingleChildScrollView(
+          child: Column(),
+        ),
+
+      );
+    });
+  }
+
+  final List<Map<String, dynamic>> msListItemSettingOptions = [
+    {
+      'icon': Icons.album_sharp,
+      'label': 'Chủ đề',
+      'color': const Color.fromRGBO(255, 255, 255, 1.0),
+      'fc': (){
+
+      }
+    },
+    {
+      'icon': Icons.thumb_up,
+      'label': 'Cảm xúc nhanh',
+      'color': const Color.fromRGBO(10, 148, 208, 1.0),
+      'fc': () {
+        // Define the action for this setting
+
+      }
+    },
+    {
+      'icon': Icons.text_rotation_none,
+      'label': 'Biệt danh',
+      'color': const Color.fromRGBO(255, 255, 255, 1.0),
+      'fc': () {
+        // Define the action for this setting
+        print('Trang cá nhân tapped');
+      }
+    },
+    {
+      'icon': Icons.edit,
+      'label': 'Hiệu ứng từ ngữ',
+      'color': const Color.fromRGBO(255, 255, 255, 1.0),
+      'fc': () {
+        // Define the action for this setting
+        print('Tắt thông báo tapped');
+      }
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     double avatarWidth = MediaQuery.of(context).size.width*0.25;
@@ -78,7 +131,7 @@ class _MsSettingChatScreenState extends State<MsSettingChatScreen> {
               const Text("Nguyễn Việt Hoàng", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),),
               const SizedBox(height: 20,),
               listMsSettingActionWidget(listItemSettingActionWidget, context),
-              msListSettingOptionsThemeWidget(msListItemSettingOptions)
+              msListSettingOptionsThemeWidget(msListItemSettingOptions, context),
             ],
           ),
         ),

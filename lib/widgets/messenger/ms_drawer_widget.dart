@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meta_app/models/user.model.dart';
+import 'package:meta_app/screens/messenger/ms_user_setting_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/ms_community_widget.dart';
 import 'package:meta_app/widgets/messenger/ms_drawer_action_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/user.provider.dart';
 
 class MessengerDrawerWidget extends StatefulWidget {
   const MessengerDrawerWidget({super.key});
@@ -18,7 +23,7 @@ class _MessengerDrawerWidgetState extends State<MessengerDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-
+    final UserModel user = Provider.of<UserProvider>(context).getUser;
     return Drawer(
       width: MediaQuery.of(context).size.width*0.85,
       shape: const RoundedRectangleBorder(
@@ -41,18 +46,20 @@ class _MessengerDrawerWidgetState extends State<MessengerDrawerWidget> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage("assets/images/testImage.jpg"),fit: BoxFit.cover
+                        image:  DecorationImage(
+                          image: NetworkImage(user.profilePictureUrl),fit: BoxFit.cover
                         ),
                         borderRadius: BorderRadius.circular(20)
                       ),
                     ),
                     const SizedBox(width: 10,),
-                    const Text("Trịnh Hiếu", style: TextStyle(color: title_ms_color, fontSize: 15, fontWeight: FontWeight.w600),)
+                    Text(user.username, style: TextStyle(color: title_ms_color, fontSize: 15, fontWeight: FontWeight.w600),)
                   ],
                 ),
                 IconButton(
-                    onPressed: (){},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MsUserSettingScreen()));
+                    },
                     icon: Icon(Icons.settings, color: Colors.white,)
                 )
 

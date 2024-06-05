@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/utils/messenger/ms_utils.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/user.provider.dart';
 
 
 
@@ -16,10 +19,16 @@ class MessageMobileLayout extends StatefulWidget {
 class _MessageMobileLayoutState extends State<MessageMobileLayout> {
   int _page = 0;
   late PageController pageController;
+  addData() async{
+    UserProvider _userProvider = Provider.of(context, listen: false);
+    await _userProvider.refreshUser();
+  }
+
   @override
   void initState() {
     super.initState();
     pageController = PageController();
+    addData();
   }
 
   @override

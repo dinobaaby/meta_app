@@ -1,13 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:meta_app/models/message.model.dart';
+import 'package:meta_app/models/user.model.dart';
 import 'package:meta_app/screens/messenger/ms_setting_chat_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/ms_list_content_chat_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/user.provider.dart';
+import '../../resource/messenger/messge.resource.dart';
 
 
 class MessengerChatScreen extends StatefulWidget {
-  const MessengerChatScreen({super.key});
+  final UserModel user;
+  final String roomId;
+
+  const MessengerChatScreen({super.key, required this.user, required this.roomId});
 
   @override
   State<MessengerChatScreen> createState() => _MessengerChatScreenState();
@@ -18,14 +27,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _sentController = TextEditingController();
   String _content = "";
-  List<Message> _messages = [
-    Message(text: 'Hello', isMe: true),
-    Message(text: 'Hi', isMe: false),
-    Message(text: 'How are you?', isMe: true),
-    Message(text: 'Em thật sự cảm thấy khó hiểu sao giờ có vài bạn nữ các bạn ảo mạng đến kinh khủng thế ạ . Nói chuyện với các bạn mà các bạn chỉ biết đi sân si con này xinh con này không xinh hay là con này xấu hơn mình . Chứ mình thấy các bạn cũng xinh bình thường gọi là ưa nhìn chứ có phải hotgirl đâu mà sân si kinh thế ạ .?', isMe: true),
-    Message(text: 'I\'m good. What about you?', isMe: false),
-    Message(text: "https://i.pinimg.com/736x/c9/af/92/c9af9269b33ad70ac936815e6681c28c.jpg", isMe: false),
-  ];
+   List<MessageModel> _messages = [] ;
 
   @override
   void initState() {
@@ -36,7 +38,19 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
         _isFocused = _focusNode.hasFocus;
 
       });
+
     });
+    loadMessages();
+  }
+  Future<void> loadMessages() async {
+    try {
+      List<MessageModel> messages = await MessageResource().loadMessages(widget.roomId); // Thay yourMessageModel bằng đối tượng của lớp MessageModel
+      setState(() {
+        _messages = messages;
+      });
+    } catch (e) {
+      print('Error loading messages: $e');
+    }
   }
   @override
   void dispose() {
@@ -46,6 +60,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final UserModel userc = Provider.of<UserProvider>(context).getUser;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -60,9 +75,9 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                       Container(
                         width: 40,
                         height: 40,
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/testImage.jpg"),
+                            image: NetworkImage(widget.user.profilePictureUrl),
                               fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(20))
@@ -85,9 +100,9 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 10),
-                    child: const Column(
+                    child:  Column(
                       children: [
-                        Text("Dino dev", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                        Text(widget.user.username, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
                         Text("Active now", style: TextStyle(color: Colors.grey,  fontSize: 12),),
                       ],
                     ),
@@ -101,7 +116,10 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
             ],
           ),
           backgroundColor: ms_background_color,
-          body: MessengerListContentChatWidget(listMessage: _messages),
+          body: Container(
+            height:   MediaQuery.of(context).size.height*0.82,
+            child: MessengerListContentChatWidget(roomId: widget.roomId, user: widget.user,),
+          ),
           bottomSheet: Container(
             height: 60,
             decoration: const BoxDecoration(
@@ -149,11 +167,13 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                     },
                   ),
                 ),
-                actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){
-                  setState(() {
-                    _messages.add(new Message(text: _sentController.text, isMe: true));
-                    _sentController.text = "";
+                actionMethod(sizewidth: 40, sizeheight: 40, onPressed: () async {
 
+                   //MessageResource()(widget.user.roomId, userc.userId, messageContent);
+                  String roomId  = (userc.uid + widget.user.uid);
+                  await MessageResource().sendMessage(roomId,userc.uid , _sentController.text);
+                  setState(() {
+                    _sentController.text = "";
                   });
 
                 }, iconData: (_content.isNotEmpty ?Icons.send : Icons.favorite), color:(_content.isNotEmpty ?Colors.blueAccent : Colors.red)),

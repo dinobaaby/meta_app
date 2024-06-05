@@ -6,6 +6,11 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta_app/screens/auth/signup_first_screen.dart';
 import 'package:meta_app/screens/create_acount_first_screen.dart';
+import 'package:meta_app/screens/messenger/ms_home_screen.dart';
+
+import '../../resource/auth.resource.dart';
+import '../../responsive/messenger/ms_mobile_layout.dart';
+import '../../utils/utils.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -18,13 +23,29 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  bool _isLoading = false;
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _userController.dispose();
     _passwordController.dispose();
+  }
+  void loginUser() async{
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(email: _userController.text, password: _passwordController.text);
+    if(res == "success"){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>
+      const MessageMobileLayout()
+      ));
+    }else{
+      showSankBar(res, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void handleCreateOnTap(){
@@ -124,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 20,),
                   inputMethod(inputcontroller: _passwordController, lable: "Password", isPassword: true, hintextInput: "Password"),
                   InkWell(
+                    onTap: loginUser,
                     child: Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(vertical: 20),
@@ -133,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                       alignment: Alignment.center,
-                      child: Text("Log in", style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
+                      child: _isLoading ? const Center(child: CircularProgressIndicator(color: Colors.white,),) : Text("Log in", style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
                     ),
                   ),
                   InkWell(child: Container(child: const Text("Forgot password?", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),),),),

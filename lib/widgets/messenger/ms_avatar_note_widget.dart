@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:meta_app/models/user.model.dart';
 import 'package:meta_app/screens/messenger/ms_chat_screen.dart';
 import 'package:meta_app/screens/messenger/ms_note_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/user.provider.dart';
 
 class MessengerAvatarNoteWidget extends StatefulWidget {
-  const MessengerAvatarNoteWidget({super.key});
+  final UserModel user;
+  const MessengerAvatarNoteWidget({super.key, required this.user});
 
   @override
   State<MessengerAvatarNoteWidget> createState() =>
@@ -14,8 +19,10 @@ class MessengerAvatarNoteWidget extends StatefulWidget {
 }
 
 class _MessengerAvatarNoteWidgetState extends State<MessengerAvatarNoteWidget> {
+
   @override
   Widget build(BuildContext context) {
+    final UserModel user = Provider.of<UserProvider>(context).getUser;
     return Stack(
       children: [
         Container(
@@ -30,15 +37,15 @@ class _MessengerAvatarNoteWidgetState extends State<MessengerAvatarNoteWidget> {
           child: Container(
             height: 60,
             width: 60,
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/testImage.jpg"),
+                image: NetworkImage(widget.user.profilePictureUrl),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.all(Radius.circular(30)),
             ),
             child: InkWell(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => MessengerChatScreen())),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => MessengerChatScreen(user:widget.user, roomId: user.uid + widget.user.uid,))),
             ),
           ),
         ),
@@ -81,10 +88,10 @@ class _MessengerAvatarNoteWidgetState extends State<MessengerAvatarNoteWidget> {
             )
         ),
         Positioned(
-            bottom: 5,
+            bottom: 0,
             left: 20,
 
-            child: Text("Your name", style: TextStyle(color: Colors.grey, fontSize: 10, fontWeight: FontWeight.bold),)
+            child: Text(widget.user.username, style: TextStyle(color: Colors.grey, fontSize: 10, fontWeight: FontWeight.bold),)
         )
       ],
     );

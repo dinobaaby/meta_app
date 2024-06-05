@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/screens/auth/login_screen.dart';
-import 'package:meta_app/utils/messenger/ms_colors.dart';
+import 'package:meta_app/screens/auth/sigup_final_screen.dart';
 
 
 class SignupFirstScreen extends StatelessWidget {
   const SignupFirstScreen({super.key});
 
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,7 +25,7 @@ class SignupFirstScreen extends StatelessWidget {
                   Color.fromRGBO(24, 46, 61, 1.0),
                 ]
               )
-              
+
             ),
             child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,11 +36,11 @@ class SignupFirstScreen extends StatelessWidget {
                     child: const Icon(Icons.arrow_back, color: Colors.white,),
                 ),
                 const SizedBox(height: 20,),
-                const Text("Tham gia Facebook", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600,)),
+                const Text("Tham gia Facebook", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w600,)),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 20),
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.width * 0.48,
+                  height: MediaQuery.of(context).size.width * 0.55,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: const DecorationImage(
@@ -50,8 +50,9 @@ class SignupFirstScreen extends StatelessWidget {
                     )
                   ),
                 ),
-                const Text("Hãy tạo tài khoản để kết nối với bạn bè, người thân và cộng đồng có chung sở thích.", style: TextStyle(color: Colors.white, fontSize: 15),),
+                const Text("Hãy tạo tài khoản để kết nối với bạn bè, người thân và cộng đồng có chung sở thích.", style: TextStyle(color: Colors.white, fontSize: 14),),
                 InkWell(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpFinalScreen())),
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 15),
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -60,7 +61,7 @@ class SignupFirstScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(40)
                     ),
                     alignment: Alignment.center,
-                    child: const Text("Bắt đầu", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),),
+                    child: const Text("Bắt đầu", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15),),
                   ),
                 ),
                 InkWell(
@@ -75,7 +76,7 @@ class SignupFirstScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(40)
                     ),
                     alignment: Alignment.center,
-                    child: const Text("Tôi có tài khoản rồi", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),),
+                    child: const Text("Tôi có tài khoản rồi", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15),),
                   ),
                 )
               ],

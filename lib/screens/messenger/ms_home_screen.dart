@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta_app/screens/messenger/create_new_message_screen.dart';
-import 'package:meta_app/screens/messenger/ms_search_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/ms_drawer_widget.dart';
 import 'package:meta_app/widgets/messenger/ms_list_avatar_note_widget.dart';
 import 'package:meta_app/widgets/messenger/ms_list_chat_widget.dart';
 import 'package:meta_app/widgets/messenger/ms_search_widget.dart';
 
-import '../../widgets/messenger/ms_avatar_note_widget.dart';
 
 class MessengerHomeScreen extends StatefulWidget {
   const MessengerHomeScreen({super.key});
@@ -54,6 +52,7 @@ class _MessengerHomeScreenState extends State<MessengerHomeScreen> {
             padding: const EdgeInsets.all(10),
             child: const SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MessengerSearchWidget(),
                   MessengerListAvatarNoteWidget(),
