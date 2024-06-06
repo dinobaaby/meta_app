@@ -11,3 +11,4 @@ const more_action_fb_color = Color.fromRGBO(226, 228, 234, 1.0);
 const widget_action_fb_color = Color.fromRGBO(253, 253, 254, 1.0);
 
 const button_background_color = Color.fromRGBO(233, 244, 255, 1);
+const mobileBackgroundColor = Color.fromRGBO(244, 244, 244, 1);
