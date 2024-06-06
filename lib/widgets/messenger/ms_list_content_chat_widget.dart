@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_app/models/user.model.dart';
-import 'package:meta_app/resource/messenger/messge.resource.dart';
 import 'package:meta_app/utils/messenger/ms_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/message.model.dart';
 import '../../providers/user.provider.dart';
 
 class MessengerListContentChatWidget extends StatefulWidget {
@@ -49,6 +47,7 @@ class _MessengerListContentChatWidgetState extends State<MessengerListContentCha
         QueryDocumentSnapshot<Map<String, dynamic>> currentMessage = messages[i];
         bool isMe = currentMessage['senderId'].toString().contains(userc.uid);
         bool isContent = isImage(currentMessage['content']);
+
 
         EdgeInsets margin = const EdgeInsets.only(bottom: 10, top: 3);
         bool isSendByUser = (i < (messages.length - 1) && messages[i]['senderId'] == messages[i + 1]['senderId']);
@@ -158,12 +157,10 @@ class _MessengerListContentChatWidgetState extends State<MessengerListContentCha
     }
 
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('messages').where('roomId', whereIn: [MessageResource().reverseString(widget.roomId), widget.roomId]).orderBy("timestamp").snapshots(),
+      stream: FirebaseFirestore.instance.collection('messages').where('roomId', whereIn: [widget.user.uid + userc.uid, widget.roomId, userc.uid+widget.user.uid]).orderBy("timestamp").snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return Container();
         }
         return ListView.builder(
           itemCount: 1,

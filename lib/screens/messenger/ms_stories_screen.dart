@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/models/messenger/story.model.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/stories/ms_story_item_widget.dart';
 
@@ -28,10 +29,10 @@ class _MessengerPeopleScreenState extends State<MessengerStoriesScreen> {
           ),
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding:const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  MessengerStoryItemWidget()
+                  MessengerStoryItemWidget(story: Story(id:"",imageUrl: "https://images.pexels.com/photos/167259/pexels-photo-167259.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",authorImageUrl: "https://images.pexels.com/photos/167259/pexels-photo-167259.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",authorName: "Huy hoàng",storyCount: 1),)
                 ],
               ),
             ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:meta_app/models/user.model.dart';
 import 'package:meta_app/screens/messenger/ms_chat_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/user.provider.dart';
@@ -119,38 +118,44 @@ class _MessengerSearchScreenState extends State<MessengerSearchScreen> {
                               ['profilePictureUrl']),
                         ),
                         title: Text((snapshot.data! as dynamic).docs[index]
-                        ['username'], style: TextStyle(color: Colors.white),),
+                        ['username'], style: const TextStyle(color: Colors.white, fontSize: 16),),
                       ),
                     );
                   });
             })
-            : FutureBuilder(
-            future: FirebaseFirestore.instance.collection('posts').get(),
-            builder: (context, snapshot){
-              if(!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return StaggeredGridView.countBuilder(
-                crossAxisCount: 3,
-                itemCount: (snapshot.data! as dynamic).docs.length,
-                itemBuilder:(context, index) => Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: Image.network(
-                    (snapshot.data! as dynamic).docs[index]['photoUrl'],
-                    fit: BoxFit.cover,
+
+            :  Container(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Gợi ý", style: TextStyle(color: Color.fromRGBO(
+                            206, 200, 200, 0.4)),),
+                        SizedBox(height: 10,),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage('assets/images/testImage.jpg'),
+                            ),
+                            SizedBox(width: 20,),
+                            Text("Nguyễn Việt Hoàng", style: TextStyle(color: Colors.white, fontSize: 16),)
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage('assets/images/testImage.jpg'),
+                            ),
+                            SizedBox(width: 20,),
+                            Text("Nguyễn Thế Huy Hoàng", style: TextStyle(color: Colors.white, fontSize: 16),)
+                          ],
+                        )
+                      ],
                   ),
-                ),
-                staggeredTileBuilder: (index) => StaggeredTile.count((index%7==0) ?2:1, (index%7==0) ?2:1),
-                mainAxisSpacing: 2,
-                crossAxisSpacing: 2,
-
-              );
-
-            }
-
-        ),
+            )
       ),
     );
   }

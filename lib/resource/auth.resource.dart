@@ -6,6 +6,8 @@ import 'package:meta_app/models/user.model.dart' as model;
 
 import 'package:meta_app/resource/storage_methods.dart';
 
+import '../models/message.model.dart';
+import '../models/room.model.dart';
 import '../models/user.model.dart';
 
 
@@ -94,26 +96,118 @@ class AuthMethods {
     await _auth.signOut();
   }
 
-  Future<List<UserModel>> fetchUsersExceptCurrent() async {
+  // Future<List<UserModel>> fetchUsersExceptCurrent() async {
+  //   List<UserModel> userList = [];
+  //   try {
+  //     User? currentUser = FirebaseAuth.instance.currentUser;
+  //     if (currentUser != null) { // Check if currentUser is not null
+  //       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+  //           .collection('users')
+  //           .where('uid', isNotEqualTo: currentUser.uid)
+  //           .get();
+  //
+  //       for (var doc in querySnapshot.docs) {
+  //         userList.add(UserModel.fronSnap(doc));
+  //       }
+  //     } else {
+  //
+  //       print("No current user found. Returning empty list.");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching users: $e");
+  //   }
+  //   return userList;
+  // }
+
+  Future<List<UserModel>> fetchUsersSortedByRecentMessages() async {
+    List<UserModel> userList = [];
+    Map<String, DateTime> userMessageMap = {};
+
+    try {
+      // Fetch all messages ordered by timestamp in descending order
+      QuerySnapshot messageSnapshot = await FirebaseFirestore.instance
+          .collection('messages')
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      // Iterate through messages and track users with the most recent timestamps
+      for (var doc in messageSnapshot.docs) {
+        var message = MessageModel.fronSnap(doc);
+        if (!userMessageMap.containsKey(message.senderId)) {
+          userMessageMap[message.senderId] = message.timestamp;
+        }
+      }
+
+      // Fetch user details for each unique user ID
+      for (var userId in userMessageMap.keys) {
+        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .get();
+
+        if (userSnapshot.exists) {
+          userList.add(UserModel.fronSnap(userSnapshot));
+        }
+      }
+
+      // Sort users based on the most recent message timestamp
+      userList.sort((a, b) => userMessageMap[b.uid]!.compareTo(userMessageMap[a.uid]!));
+    } catch (e) {
+      print("Error fetching users sorted by recent messages: $e");
+    }
+
+    return userList;
+  }
+
+  Future<List<UserModel>> fetchAllUser() async {
     List<UserModel> userList = [];
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        QuerySnapshot querySnapshot =await  FirebaseFirestore.instance
+      if (currentUser != null) { // Check if currentUser is not null
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
             .collection('users')
-            .where('uid',
-            isNotEqualTo: currentUser.uid)
             .get();
 
         for (var doc in querySnapshot.docs) {
           userList.add(UserModel.fronSnap(doc));
         }
+      } else {
+
+        print("No current user found. Returning empty list.");
       }
     } catch (e) {
       print("Error fetching users: $e");
     }
     return userList;
   }
+
+  Future<List<ChatRoom>> fetchJoinedChatRooms() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return [];
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('chatRooms')
+        .where('users', arrayContains: currentUser.email)
+        .get();
+
+    return snapshot.docs.map((doc) => ChatRoom.fromSnap(doc)).toList();
+  }
+
+  // Fetch users except current user
+  Future<List<UserModel>> fetchUsersExceptCurrent() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return [];
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('uid', isNotEqualTo: currentUser.uid)
+        .get();
+
+    return snapshot.docs.map((doc) => UserModel.fronSnap(doc)).toList();
+  }
+
+
+
 }
 
 //

@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta_app/models/message.model.dart';
 import 'package:meta_app/models/user.model.dart';
+import 'package:meta_app/resource/storage_methods.dart';
 import 'package:meta_app/screens/messenger/ms_setting_chat_screen.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 import 'package:meta_app/widgets/messenger/ms_list_content_chat_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/user.provider.dart';
 import '../../resource/messenger/messge.resource.dart';
-
-
+import '../../utils/utils.dart';
 class MessengerChatScreen extends StatefulWidget {
   final UserModel user;
   final String roomId;
@@ -27,8 +26,35 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _sentController = TextEditingController();
   String _content = "";
-   List<MessageModel> _messages = [] ;
+  Uint8List? _image;
+  List<MessageModel> _messages = [] ;
 
+  Future<void> sendImageMessage(String roomId, String senderId) async {
+    // 1. Get the image from the gallery
+    Uint8List? selectedImage = await pickImage(ImageSource.gallery);
+
+    if (selectedImage == null) return; // User canceled image selection
+
+    try {
+      //
+      // showDialog(
+      //   context: context,
+      //   builder: (context) => const Center(child: CircularProgressIndicator()),
+      // );
+
+      String imageUrl = await StorageMethods().uploadImageToStorage(
+        'images/messages/',
+        selectedImage,
+        false,
+      );
+
+      await MessageResource().sendMessage(roomId, senderId, imageUrl);
+
+    } catch (e) {
+      print('Error sending image message: $e');
+    } finally {
+    }
+  }
   @override
   void initState() {
 
@@ -44,7 +70,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
   }
   Future<void> loadMessages() async {
     try {
-      List<MessageModel> messages = await MessageResource().loadMessages(widget.roomId); // Thay yourMessageModel bằng đối tượng của lớp MessageModel
+      List<MessageModel> messages = await MessageResource().loadMessages(widget.roomId);
       setState(() {
         _messages = messages;
       });
@@ -69,6 +95,8 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
 
               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MsSettingChatScreen())),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Stack(
                     children: [
@@ -80,7 +108,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                             image: NetworkImage(widget.user.profilePictureUrl),
                               fit: BoxFit.cover
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20))
+                          borderRadius: const BorderRadius.all(Radius.circular(20))
                         ),
                       ),
                       Positioned(
@@ -101,6 +129,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                   Container(
                     margin: const EdgeInsets.only(left: 10),
                     child:  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.user.username, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
                         Text("Active now", style: TextStyle(color: Colors.grey,  fontSize: 12),),
@@ -114,6 +143,9 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
               IconButton(onPressed: (){}, icon: const Icon(Icons.phone, color: Colors.purple,)),
               IconButton(onPressed: (){}, icon: const Icon(Icons.video_camera_back, color: Colors.purple,))
             ],
+            iconTheme: const IconThemeData(
+              color: Colors.purple
+            ),
           ),
           backgroundColor: ms_background_color,
           body: Container(
@@ -134,7 +166,7 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                           children: [
                             actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){}, iconData: Icons.add_circle, color:action_appbar_ms_color),
                             actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){}, iconData: Icons.camera_alt, color:action_appbar_ms_color),
-                            actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){}, iconData: Icons.image, color:action_appbar_ms_color),
+                            actionMethod(sizewidth: 40, sizeheight: 40, onPressed:() => sendImageMessage(widget.roomId, userc.uid), iconData: Icons.image, color:action_appbar_ms_color),
                             actionMethod(sizewidth: 40, sizeheight: 40, onPressed: (){}, iconData: Icons.mic, color:action_appbar_ms_color),
                           ]
                         )
@@ -168,15 +200,12 @@ class _MessengerChatScreenState extends State<MessengerChatScreen> {
                   ),
                 ),
                 actionMethod(sizewidth: 40, sizeheight: 40, onPressed: () async {
-
-                   //MessageResource()(widget.user.roomId, userc.userId, messageContent);
                   String roomId  = (userc.uid + widget.user.uid);
                   await MessageResource().sendMessage(roomId,userc.uid , _sentController.text);
                   setState(() {
                     _sentController.text = "";
                   });
-
-                }, iconData: (_content.isNotEmpty ?Icons.send : Icons.favorite), color:(_content.isNotEmpty ?Colors.blueAccent : Colors.red)),
+                }, iconData: (_content.isNotEmpty ?Icons.send : Icons.thumb_up), color:(_content.isNotEmpty ?Colors.blueAccent : Colors.blueAccent)),
 
 
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meta_app/models/messenger/communicate.model.dart';
 import 'package:meta_app/widgets/messenger/ms_community_widget.dart';
 
 class MessengerYourListCommunity extends StatelessWidget {
@@ -18,9 +19,9 @@ class MessengerYourListCommunity extends StatelessWidget {
 
             ],
           ),
-          MessengerCommunityWidget(),
-          MessengerCommunityWidget(),
-          MessengerCommunityWidget(),
+          MessengerCommunityWidget(communicate: Communicate(uid: "", name: "9 thần tài", bio: "", managerID: "", members: ["a", "b"], photoUrl: "assets/images/quyennangkhonglo.jpg"),),
+          MessengerCommunityWidget(communicate: Communicate(uid: "", name: "10 sử gia", bio: "", managerID: "", members: ["a", "b"], photoUrl: "assets/images/sugia.jpg"),),
+          MessengerCommunityWidget(communicate: Communicate(uid: "", name: "9 định mệnh", bio: "", managerID: "", members: ["a", "b"], photoUrl: "assets/images/quyennangkhonglo.jpg"),),
 
         ],
       ),

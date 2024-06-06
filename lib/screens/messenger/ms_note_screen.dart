@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meta_app/models/messenger/note.model.dart';
 import 'package:meta_app/utils/messenger/ms_colors.dart';
 
 class MessengerNoteScreen extends StatefulWidget {
-  const MessengerNoteScreen({super.key});
+  final NoteModel note;
+  const MessengerNoteScreen({super.key, required this.note});
 
   @override
   State<MessengerNoteScreen> createState() => _MessengerNoteScreenState();

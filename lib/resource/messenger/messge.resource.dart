@@ -11,13 +11,12 @@ class MessageResource{
       String id = const Uuid().v1();
       MessageModel message = MessageModel(
         messageId: id,
-        // Unique message id
         roomId: roomId,
         senderId: senderId,
         content: content,
         timestamp: DateTime.now(),
       );
-      // Lưu message vào Firestore hoặc một nơi lưu trữ khác
+
       await FirebaseFirestore.instance.collection('messages').add(
           message.toMap());
     } catch (e) {
@@ -31,13 +30,11 @@ class MessageResource{
   }
 
   Future<List<MessageModel>> loadMessages(String roomId) async {
-    String a = reverseString(roomId);
-    print(roomId);
-    print(a);
+
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('messages')
-          .where('roomId', whereIn: [a, roomId])
+          .where('roomId', isEqualTo: roomId)
           .orderBy('timestamp')
           .get();
 
@@ -67,4 +64,5 @@ class MessageResource{
       print('Error editing message: $e');
     }
   }
+
 }

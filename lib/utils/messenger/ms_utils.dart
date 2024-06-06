@@ -12,7 +12,7 @@ final ms_home_screen_items = [
 bool isImage(String content){
   final imagePatten = r".+\.(jpg|jpeg|png|gif)";
   if(content.startsWith("http") || content.startsWith("https")){
-    return RegExp(imagePatten).matchAsPrefix(content) != null;
+    return true;
   }
-  return RegExp(imagePatten).matchAsPrefix(content) != null;
+  return false;
 }

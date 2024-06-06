@@ -23,7 +23,7 @@ class MessageModel {
       roomId: data['roomId'],
       senderId: data['senderId'],
       content: data['content'],
-      timestamp: DateTime.parse(data['timestamp']),
+        timestamp: (data['timestamp'] as Timestamp).toDate(),
     );
   }
 

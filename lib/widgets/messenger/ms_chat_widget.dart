@@ -64,7 +64,7 @@ class MessengerChatWidget extends StatelessWidget {
                   children: [
                     Text(
                       user.username,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -72,7 +72,7 @@ class MessengerChatWidget extends StatelessWidget {
                     ),
                     Text(
                       user.email,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
                       ),
@@ -84,13 +84,13 @@ class MessengerChatWidget extends StatelessWidget {
             Container(
               width: 20,
               height: 20,
-              margin: EdgeInsets.only(right: 10),
+              margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(user.profilePictureUrl),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
             ),
           ],

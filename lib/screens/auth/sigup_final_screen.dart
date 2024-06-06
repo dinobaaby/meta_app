@@ -65,7 +65,7 @@ class _SignUpFinalScreenState extends State<SignUpFinalScreen> {
       showSankBar(res, context);
     }else{
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>
-      const MessengerHomeScreen()
+      const LoginScreen()
       ));
     }
 
