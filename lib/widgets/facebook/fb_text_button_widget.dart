@@ -4,7 +4,9 @@ import 'package:meta_app/utils/facebook/fb_colors.dart';
 
 List<FBTextButtonWidget> listButton = [
   FBTextButtonWidget(() {}, FontAwesomeIcons.thumbsUp, "Like"),
-  FBTextButtonWidget(() {}, FontAwesomeIcons.comment, "Comment"),
+  FBTextButtonWidget(() {
+
+  }, FontAwesomeIcons.comment, "Comment"),
   FBTextButtonWidget(() {}, FontAwesomeIcons.message, "Sent"),
   FBTextButtonWidget(() {}, FontAwesomeIcons.share, "Share")
 ];

@@ -35,79 +35,82 @@ class _FBPostWidgetState extends State<FBPostWidget> {
         }
         else{
           User user = snapshot.data!;
-          return Container(
-            color: Colors.white,
-            margin: const EdgeInsets.symmetric(vertical: 3),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(user.avatarUrl),
-                      backgroundColor: Colors.blue,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            user.name,
-                            style: const TextStyle(
-                                fontSize: 12, color: button_bottombar_not_selected),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                widget.post.createdAt.toString(),
-                                style: const TextStyle(
-                                    fontSize: 8,
-                                    color: button_bottombar_not_selected),
-                              ),
-                              const Icon(
-                                Icons.public,
-                                size: 12,
-                              )
-                            ],
-                          )
-                        ],
+          return GestureDetector(
+            onTap:(){},
+            child: Container(
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(vertical: 3),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(user.avatarUrl),
+                        backgroundColor: Colors.blue,
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ReadMoreText(
-                  widget.post.content,
-                  trimLines: 2,
-                  style: const TextStyle(fontSize: 12, color: Colors.black),
-                  trimMode: TrimMode.Line,
-                  trimCollapsedText: 'Show more',
-                  moreStyle: const TextStyle(fontSize: 11),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                MultiImageViewer(
-                  images: widget.post.imageUrls
-                      .map((url) => ImageModel(imageUrl: url))
-                      .toList(),
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 23,
-                    color: Colors.white,
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              user.name,
+                              style: const TextStyle(
+                                  fontSize: 12, color: button_bottombar_not_selected),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  widget.post.createdAt.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 8,
+                                      color: button_bottombar_not_selected),
+                                ),
+                                const Icon(
+                                  Icons.public,
+                                  size: 12,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: listButton.map((e) => e).toList(),
-                )
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ReadMoreText(
+                    widget.post.content,
+                    trimLines: 2,
+                    style: const TextStyle(fontSize: 12, color: Colors.black),
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: 'Show more',
+                    moreStyle: const TextStyle(fontSize: 11),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  MultiImageViewer(
+                    images: widget.post.imageUrls
+                        .map((url) => ImageModel(imageUrl: url))
+                        .toList(),
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 23,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: listButton.map((e) => e).toList(),
+                  )
+                ],
+              ),
             ),
           ) ;
         }

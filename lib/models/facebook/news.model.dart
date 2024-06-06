@@ -6,8 +6,6 @@ class NewsFacebookModel{
   final String userId;
   final List<String> imageUrls;
   final DateTime createdAt;
-  final String profileImg;
-  final String userName;
   final likes;
 
 
@@ -17,8 +15,6 @@ class NewsFacebookModel{
       required this.userId,
       required this.imageUrls,
       required this.createdAt,
-      required this.profileImg,
-      required this.userName,
       required this.likes
   });
 
@@ -28,11 +24,7 @@ class NewsFacebookModel{
       "userId": userId,
       "imageUrls": imageUrls,
       "createdAt": createdAt,
-      "profileImg": profileImg,
-      "userName": userName,
       "likes": likes
   };
-
-
 
 }
