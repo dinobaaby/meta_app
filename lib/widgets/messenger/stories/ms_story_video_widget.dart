@@ -34,11 +34,11 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
         });
       }
     });
-    // _controller.addListener(() {
-    //   if(_controller.value.isCompleted){
-    //     Navigator.of(context).pushNamed("/");
-    //   }
-    // });
+    _controller.addListener(() {
+      if(_controller.value.isCompleted){
+        Navigator.of(context).pushNamed("/");
+      }
+    });
   }
 
   @override
@@ -77,8 +77,8 @@ class _MsStoryVideoWidgetState extends State<MsStoryVideoWidget> {
             color: Colors.black,
             child: _controller.value.isInitialized
                 ? AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
             )
                 : const Center(child: CircularProgressIndicator()),
           ),
